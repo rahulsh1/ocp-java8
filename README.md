@@ -5,3 +5,14 @@ Oracle Certified Professional, Java SE 8 Upgrade
 
 ######Contents
  + sources : Code examples for each of the exam topics
+
+
+###### References
++ http://docs.oracle.com/javase/tutorial/java/javaOO/nested.html
++ http://docs.oracle.com/javase/tutorial/java/javaOO/localclasses.html
++ http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html
++ http://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html
++ http://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html
++ http://docs.oracle.com/javase/tutorial/datetime/
++ http://docs.oracle.com/javase/8/docs/technotes/guides/scripting/nashorn/api.html
++ http://java.boot.by/ocpjp8-upgrade-guide/
