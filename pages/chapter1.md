@@ -1,7 +1,8 @@
 ---
 layout: page
 title: Chapter 1. Lambda Expressions
-description: xx
+description: 1Z0-810 Java SE8
+comments: true
 ---
 
 ### 1.1.  Describe Java inner classes and develop the code that uses Java inner classes (such as: nested class, static class, local class and anonymous classes) 
@@ -46,25 +47,27 @@ description: xx
   
  - Local classes are similar to inner classes so they cannot define or declare any static members. 
  - You cannot declare an interface inside a block; interfaces are inherently static.
-
-
-        public void greetInEnglish() {
-          interface HelloThere {			// Compile failure
-             public void greet();
-    	}
-      }
+ 
+~~~~~ java
+public void greetInEnglish() {
+  interface HelloThere {			// Compile failure
+     public void greet();
+  }
+}
+~~~~~
   
-  You cannot declare static initializers or member interfaces in a local class.     
-
-         public void sayGoodbyeInEnglish() {
-	      class EnglishGoodbye {
-	         public static void sayGoodbye() {		// Compile failure
-	           System.out.println("Bye bye");
-	         }
-	      }
-	      EnglishGoodbye.sayGoodbye();
-	    }
-      
+  You cannot declare static initializers or member interfaces in a local class.
+    
+~~~~~ java
+public void sayGoodbyeInEnglish() {
+  class EnglishGoodbye {
+    public static void sayGoodbye() {		// Compile failure
+      System.out.println("Bye bye");
+    }
+  }
+  EnglishGoodbye.sayGoodbye();
+}
+~~~~~      
 
 ##### 1.1.4 Anonmymous class
 
@@ -140,16 +143,10 @@ They are introduced so that you can add new methods in the interface without bre
         s -> s.getAge() >= 18
         (Student s) -> s.getAge() >= 18
         (Student s) -> { return s.getAge() >= 18; }      // Note the {}
-        email -> System.out.println(email)
+        e -> System.out.println(e)
 	
-	    @FunctionalInterface
-	    interface HelloWorld2 {
-	      void printGreetings(int count, String s1, String s2);
-	    }
-	
-	    public static void process2(HelloWorld2 hw) {
-	      hw.printGreetings(2, "A", "B");
-	    }
-	
-	    process2((count, s1, s2) -> System.out.println("Count = " + count + " " + s1+s2) );
-	    
+
+--------------------------------	    
+[Chapter2 - Using Built in Lambda Types](pages/chapter2.html)
+
+--------------------------------
