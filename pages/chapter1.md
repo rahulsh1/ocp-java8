@@ -48,13 +48,13 @@ comments: true
  - Local classes are similar to inner classes so they cannot define or declare any static members. 
  - You cannot declare an interface inside a block; interfaces are inherently static.
  
-~~~~~ java
+{% highlight java %}
 public void greetInEnglish() {
   interface HelloThere {			// Compile failure
      public void greet();
   }
 }
-~~~~~
+{% endhighlight %}
   
   You cannot declare static initializers or member interfaces in a local class.
     
