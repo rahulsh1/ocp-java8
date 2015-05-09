@@ -48,7 +48,7 @@ comments: true
  - Local classes are similar to inner classes so they cannot define or declare any static members. 
  - You cannot declare an interface inside a block; interfaces are inherently static.
  
-{% highlight java %}
+{% highlight java linenos %}
 public void greetInEnglish() {
   interface HelloThere {			// Compile failure
      public void greet();
@@ -56,9 +56,9 @@ public void greetInEnglish() {
 }
 {% endhighlight %}
   
-  You cannot declare static initializers or member interfaces in a local class.
+<i class="icon-hand-right"></i> You cannot declare static initializers or member interfaces in a local class. :smile:
     
-~~~~~ java
+{% highlight java linenos %}
 public void sayGoodbyeInEnglish() {
   class EnglishGoodbye {
     public static void sayGoodbye() {		// Compile failure
@@ -67,8 +67,7 @@ public void sayGoodbyeInEnglish() {
   }
   EnglishGoodbye.sayGoodbye();
 }
-~~~~~      
-
+{% endhighlight %}
 ##### 1.1.4 Anonmymous class
 
  - has access to the members of its enclosing class.
@@ -98,39 +97,40 @@ They are introduced so that you can add new methods in the interface without bre
  - A static method is a class method  defined in an interface whose method header begins with the static keyword; it also MUST provide a code body.
  - Static methods can be called only with the Interface name i.e cannot refer them by Class name or using an instance
  
-        public interface MyDefInterface {
-           default void defdoIt() { /* some implementation */ }
-           static void statdoIt() { /* some implementation */ }
-           void doItNow();  // SAM
-        }
+{% highlight java linenos %}
+public interface MyDefInterface {
+   default void defdoIt() { /* some implementation */ }
+   static void statdoIt() { /* some implementation */ }
+   void doItNow();  // SAM
+}
 
-     Calling code:
+// Calling code:
+public static void main(String[] args) {
+  MyDefInterface myDefInterface = () -> System.out.println("just do it");
 
-        public static void main(String[] args) {
-          MyDefInterface myDefInterface = () -> System.out.println("just do it");
-
-          myDefInterface.defdoIt();
-          myDefInterface.doItNow();
-          MyDefInterface.statdoIt();
-        }
-  
+  myDefInterface.defdoIt();
+  myDefInterface.doItNow();
+  MyDefInterface.statdoIt();
+}
+{% endhighlight %}  
 
 
 ### 1.3.  Describe a Lambda expression; refactor the code that use anonymous inner class to use Lambda expression; including type inference, target typing 
 
-    // Pre-Java8 style
-    button.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            comp.setText("Button has been clicked");
-        }
-    });
+{% highlight java linenos %}
+// Pre-Java8 style
+button.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        comp.setText("Button has been clicked");
+    }
+});
 
-    // Java8 style
-    button.addActionListener(e -> comp.setText("Button has been clicked"));
-    //or
-    button.addActionListener((ActionEvent e) -> comp.setText("Button has been clicked"));
-
+// Java8 style
+button.addActionListener(e -> comp.setText("Button has been clicked"));
+//or
+button.addActionListener((ActionEvent e) -> comp.setText("Button has been clicked"));
+{% endhighlight %} 
 
 ##### Lambda Expressions
   - A comma-separated list of formal parameters enclosed in parentheses. 
@@ -139,13 +139,13 @@ They are introduced so that you can add new methods in the interface without bre
   - Remember return statement is NOT an expression so in a lambda expression, you MUST enclose statements in braces ({...}). 
   - You can omit the data type of the parameters in a lambda expression.
   
-  
-        s -> s.getAge() >= 18
-        (Student s) -> s.getAge() >= 18
-        (Student s) -> { return s.getAge() >= 18; }      // Note the {}
-        e -> System.out.println(e)
+{% highlight java linenos %}
+s -> s.getAge() >= 18
+(Student s) -> s.getAge() >= 18
+(Student s) -> { return s.getAge() >= 18; }      // Note the {}
+e -> System.out.println(e)
 	
-
+{% endhighlight %} 
 --------------------------------	    
 [Chapter2 - Using Built in Lambda Types](pages/chapter2.html)
 

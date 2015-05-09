@@ -23,6 +23,9 @@ safe: true
 # (see https://help.github.com/articles/migrating-your-pages-site-from-maruku)
 markdown: kramdown
 
+gems:
+  - jemoji
+
 # All Jekyll-Bootstrap specific configurations are namespaced into this hash
 #
 JB :
