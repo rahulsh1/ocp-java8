@@ -45,29 +45,30 @@ comments: true
   
 ###### Static members
   
- - Local classes are similar to inner classes so they cannot define or declare any static members. 
- - You cannot declare an interface inside a block; interfaces are inherently static.
+ - Local classes are similar to inner classes so they cannot define or declare any static members. :exclamation: See [OuterInnerDemo](../sources/src/ocp/study/part1/OuterInnerDemo.java)
+ - You cannot declare an interface inside a block; interfaces are inherently static. 
  
 {% highlight java linenos %}
-public void greetInEnglish() {
-  interface HelloThere {			// Compile failure
+public void saySomething() {
+  interface HelloThere {			// Compile failure :boom:
      public void greet();
   }
 }
 {% endhighlight %}
   
-<i class="icon-hand-right"></i> You cannot declare static initializers or member interfaces in a local class. :smile:
+<i class="icon-hand-right"></i> You cannot declare static initializers or member interfaces in a local class. 
     
 {% highlight java linenos %}
-public void sayGoodbyeInEnglish() {
-  class EnglishGoodbye {
-    public static void sayGoodbye() {		// Compile failure
+public void saySomething() {
+  class SayHello {
+    public static void goodbye() {  // Compile failure :boom:
       System.out.println("Bye bye");
     }
   }
-  EnglishGoodbye.sayGoodbye();
+  SayHello.goodbye();
 }
 {% endhighlight %}
+
 ##### 1.1.4 Anonmymous class
 
  - has access to the members of its enclosing class.
@@ -85,34 +86,35 @@ public void sayGoodbyeInEnglish() {
  - provide target types for lambda expressions and method references. 
  - has a single abstract method (SAM), called the functional method for that functional interface, 
    to which the lambda expression's parameter and return types are matched or adapted. 
- - All the existing single method interfaces like Runnable,Callable, Comparator, and ActionListener in the JDK 8 are now functional interfaces 
+ - All the existing single method interfaces like `Runnable`, `Callable`, `Comparator`, and `ActionListener` in the JDK 8 are now functional interfaces 
  - `@FunctionalInterface` annotation
    - optional, it is a "hint" for Java compiler similar to `@Override`
    
-Default methods in interfaces
+##### Default methods in interfaces
+
 They are introduced so that you can add new methods in the interface without breaking old code that uses this interface.
 
- - Methods in interfaces can now have implementation !!!! Woh
+ - Methods in interfaces can now have implementation :fire:
  - A default method is an instance method defined in an interface whose method header begins with the default keyword; it also MUST provide a code body. 
  - A static method is a class method  defined in an interface whose method header begins with the static keyword; it also MUST provide a code body.
  - Static methods can be called only with the Interface name i.e cannot refer them by Class name or using an instance
  
 {% highlight java linenos %}
-public interface MyDefInterface {
-   default void defdoIt() { /* some implementation */ }
-   static void statdoIt() { /* some implementation */ }
-   void doItNow();  // SAM
+public interface SomeInterface {
+   default void defdoSome() { /* implementation */ }
+   static  void statdoSome() { /* implementation */ }
+   void doIt();  // SAM
 }
 
 // Calling code:
 public static void main(String[] args) {
-  MyDefInterface myDefInterface = () -> System.out.println("just do it");
+  SomeInterface myInterface = () -> System.out.println("do something");
 
-  myDefInterface.defdoIt();
-  myDefInterface.doItNow();
-  MyDefInterface.statdoIt();
+  myInterface.defdoSome();
+  myInterface.doIt();
+  myInterface.statdoSome();
 }
-{% endhighlight %}  
+{% endhighlight %}
 
 
 ### 1.3.  Describe a Lambda expression; refactor the code that use anonymous inner class to use Lambda expression; including type inference, target typing 
@@ -128,22 +130,21 @@ button.addActionListener(new ActionListener() {
 
 // Java8 style
 button.addActionListener(e -> comp.setText("Button has been clicked"));
-//or
+// or
 button.addActionListener((ActionEvent e) -> comp.setText("Button has been clicked"));
 {% endhighlight %} 
 
 ##### Lambda Expressions
   - A comma-separated list of formal parameters enclosed in parentheses. 
-  - The arrow token ->
+  - The arrow token **->**
   - A body, which consists of a single expression or a statement block
   - Remember return statement is NOT an expression so in a lambda expression, you MUST enclose statements in braces ({...}). 
   - You can omit the data type of the parameters in a lambda expression.
   
 {% highlight java linenos %}
-s -> s.getAge() >= 18
-(Student s) -> s.getAge() >= 18
-(Student s) -> { return s.getAge() >= 18; }      // Note the {}
-e -> System.out.println(e)
+p -> p.getDept() >= 2
+(Person p) -> p.getDept() >= 2
+(Person p) -> { return p.getDept() >= 2; }      // Note the {}
 	
 {% endhighlight %} 
 --------------------------------	    
