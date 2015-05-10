@@ -69,9 +69,25 @@ Unlike a collection, a **stream is not a data structure**. It instead carries va
 
 - `Terminal operations`: such as Stream.forEach or Stream.count may traverse the stream to produce a result
 
+
+ 
   
 ##### Intermediate operations: 
-  All intermediate operations are lazy - no results until terminal operation
+All intermediate operations are lazy - no results until terminal operation
+
+:point_right: Intermediate operations are further divided into `stateless` and `stateful` operations. 
+Stateless operations, such as filter and map, retain no state from previously seen element when processing a 
+ new element -- each element can be processed independently of operations on other elements. 
+ 
+Stateful operations, such as distinct and sorted, may incorporate state from previously seen elements when processing new elements.
+
+:point_right: Stateful operations may need to process the entire input before producing a result. 
+For example, one cannot produce any results from sorting a stream until one has seen all elements of the stream. 
+As a result, under parallel computation, some pipelines containing stateful intermediate operations may require multiple passes
+on the data or may need to buffer significant data. 
+
+Pipelines containing exclusively stateless intermediate operations can be processed in a single pass, 
+whether sequential or parallel, with minimal data buffering. 
 
  - `Stream.filter()`
  
@@ -86,21 +102,21 @@ Unlike a collection, a **stream is not a data structure**. It instead carries va
 	    Stream<T> distinct();
    
  - `Stream.peek()`
- 
- 	    Stream<T> peek(Consumer<? super T> action)
-   
+{% highlight java  %}
+ Stream<T> peek(Consumer<? super T> action)
+{% endhighlight %} 
+
 Since peek returns the stream itself, nothing will happen if you do this: i.e no output
 `list.stream().peek(s -> System.out.println(s.toUpperCase()));`
 
-You can add more operations like foreach and then you see both peek and foreach output.
-   
+You can add terminal operations like foreach and then you see both peek and foreach output.
 
 ##### Terminal Operations
   Stream API operations that returns a result or produce a side effect. 
   Commonly used terminal methods are forEach, toArray, min, max, findFirst, anyMatch, allMatch, etc. 
-  You can identify terminal methods from the return type, **they will never return a Stream.** :fire:
+  You can identify terminal methods from the return type, **they will never return a Stream.** 
  
-You can operate on a stream only once. :fire: Doing another terminal operation will result in :bulb:
+:point_right: You can operate on a stream only once. :fire: Doing another terminal operation will result in :bulb:
 
 `Exception in thread "main" java.lang.IllegalStateException: stream has already been operated upon or closed`
 
@@ -172,15 +188,17 @@ System.out.println(list2);
        
 :boom:
 
-> If you guessed, just all those words would be uppercase, think again :-1:
+> If you guessed, just all those words would be upper case :-1:
 
-> If you guessed, both lower and upper case words, think again :-1:
+> If you guessed, both lower (due to peek) and upper case words :-1:
 
 > If you guessed, no output :clap:
 
 Since there is no terminal operation, there would be no output.
 
+If you add a `foreach(System.out::println)` to it, you will see both lower and upper case words.
+
 --------------------------------	    
-[Next Chapter - Collection Operations with Lambda](pages/chapter4.html)
+[Next Chapter - Collection Operations with Lambda](chapter4.html)
 
 --------------------------------  

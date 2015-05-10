@@ -306,6 +306,6 @@ System.out.println(f1.get());
 :bulb: Know when to use which type of method reference.
  
 --------------------------------	    
-[Next Chapter - Filtering Collections with Lambdas](pages/chapter3.html)
+[Next Chapter - Filtering Collections with Lambdas](chapter3.html)
 
 --------------------------------  

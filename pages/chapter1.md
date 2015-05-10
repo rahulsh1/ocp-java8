@@ -148,6 +148,6 @@ p -> p.getDept() >= 2
 	
 {% endhighlight %} 
 --------------------------------	    
-[Chapter2 - Using Built in Lambda Types](pages/chapter2.html)
+[Chapter2 - Using Built in Lambda Types](chapter2.html)
 
 --------------------------------

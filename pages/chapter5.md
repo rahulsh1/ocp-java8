@@ -50,11 +50,11 @@ The ordering will be totally random here incase of parallel streams.
   .forEachOrdered(e -> System.out.print(e + " "));
 {% endhighlight %} 
 
-:pointright: Interference
+:point_right: Interference
   - Lambda expressions in stream operations should not interfere. 
     Interference occurs when the source of a stream is modified while a pipeline processes the stream.
 
-:pointright: Stateful Lambda Expressions
+:point_right: Stateful Lambda Expressions
   - Avoid using stateful lambda expressions as parameters in stream operations. 
   - A stateful lambda expression is one whose result depends on any state that might change during the execution of a pipeline
   
@@ -67,7 +67,7 @@ The ordering will be totally random here incase of parallel streams.
     .forEachOrdered(e -> System.out.print(e + " "));
 {% endhighlight %} 
 
-:pointright: Make sure you use a concurrent version or synchronized version of the Map/List for parallel stream when you add to it.
+:point_right: Make sure you use a concurrent version or synchronized version of the Map/List for parallel stream when you add to it.
 otherwise, you'll get incorrect results since multiple threads access and modify the collection.
 
 ### Chap 5.2    Implement decomposition, reduction, in streams
@@ -95,7 +95,7 @@ Performs a reduction on the elements of this stream, using the provided identity
 Performs a reduction on the elements of this stream, using the provided identity, accumulation and combining functions.
  
 :fire: 
-:pointright:  The reduce operation always returns a new value. The accumulator function also returns a new value every time it processes an element of a stream
+:point_right:  The reduce operation always returns a new value. The accumulator function also returns a new value every time it processes an element of a stream
   
 ##### Stream.collect
 Unlike the reduce method, which always creates a new value when it processes an element, the collect method modifies, or mutates, an existing value.
@@ -119,7 +119,8 @@ The collect operation is best suited for collections.
 :fire: Know all the above methods very well - what the input args are and what they return
 
 [See Also](http://docs.oracle.com/javase/tutorial/collections/streams/reduction.html)   
+
 --------------------------------	    
-[Next Chapter - Lambda Cookbook](pages/chapter6.html)
+[Next Chapter - Lambda Cookbook](chapter6.html)
 
 --------------------------------  

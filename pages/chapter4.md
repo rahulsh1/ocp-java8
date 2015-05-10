@@ -61,7 +61,7 @@ System.out.println("Max: " + istream.max().getAsInt());
 
       boolean noneMatch(Predicate<? super T> predicate);  
   
-:pointright: Remember method signatures: :fire:
+:point_right: Remember method signatures: :fire:
 
     All `findXxx()` methods have no arguments and return `Optional`.
 
@@ -121,23 +121,25 @@ lets you execute the action given as argument if a value is present; otherwise n
   
   `long count()`
  
+:point_right: Note that `min` and `max` return an `Optional` :fire:
+ 
 ##### Primitive streams
   `IntStream`    - also used for  short, char, byte, and boolean
   `LongStream`,  and 
   `DoubleStream`  also for float
   
-:pointright: Stream of objects can be mapped using mapToInt, mapToLong, or mapToDouble methods. :fire:
+:point_right: Stream of objects can be mapped using mapToInt, mapToLong, or mapToDouble methods. :fire:
   
   
 ### 4.5.  Sort a collection using lambda expressions 
 
 `sorted()`  - This is a stateful intermediate operation.
 
- Sorts the input stream that has elements of type Comparable(if not ClassCastException is thrown :fire: ) in natural order.
-       
-    Stream<T> sorted()`
-    `Stream<T> sorted(Comparator<? super T> comparator)`  
-
+Sorts the input stream that has elements of type Comparable(if not `ClassCastException` is thrown :fire: ) in natural order.
+{% highlight java %}       
+Stream<T> sorted()
+Stream<T> sorted(Comparator<? super T> comparator)
+{% endhighlight %} 
 Comparators can also be chained using 
  `.sorted(c1.thenComparing(c2))`
  
@@ -171,6 +173,6 @@ Map<Boolean,List<T>>>   partitioningBy(Predicate<? super T> predicate)
 [See Also](http://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html)
 
 --------------------------------	    
-[Next Chapter -  Parallel Streams](pages/chapter5.html)
+[Next Chapter -  Parallel Streams](chapter5.html)
 
 --------------------------------   
