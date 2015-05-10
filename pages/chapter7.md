@@ -51,8 +51,7 @@ When you extend an interface that contains a default method, you can do the foll
 - Redeclare the default method, which makes it abstract. i.e. redeclare it but without the implementation. :fire:
 - Redefine the default method, which overrides it. i.e Specify some other implementation for the default method.
   
-:boom: You can define an Interface with all default methods? Yes
-One or more or all the methods can be default
+:boom: You can define an Interface with all default methods? Yes, :fire: One or more or all the methods can be default
  
 e.g: Comparator interface has been enhanced with default method 
 

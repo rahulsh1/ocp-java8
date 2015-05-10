@@ -73,8 +73,8 @@ default V compute(K key, BiFunction<? super K,? super V,? extends V> remappingFu
 ##### java.util.Map<K, V>
 {% highlight java %}  
 default V merge(K key, V value, BiFunction<? super V,? super V,? extends V> remappingFunction) 
- - If there is no value for this key, use value, if there is, pass to func and assign that value to the key.
-   If new value is null, remove the key from map
+ - If there is no value for this key, use value, if there is, pass to func and assign that 
+   value to the key. If new value is null, removes the key from map
 {% endhighlight %}	
 
 e.g `map.merge(key, msg, String::concat)`  // to either create or append a String msg to a value mapping: 
@@ -107,7 +107,8 @@ Most streams are backed by collections, arrays, or generating functions, require
 The below methods opens up some of other file resource and should be used with the try-with-resources to ensure that the stream's close method is invoked. :fire:
 {% highlight java %} 
 public static Stream<Path> list(Path dir) throws IOException
- - Return a lazily populated Stream, the elements of which are the entries in the directory. The listing is not recursive.
+ - Return a lazily populated Stream, the elements of which are the entries in the directory. 
+   The listing is not recursive.
 {% endhighlight %}
   
 #### walk:
@@ -118,8 +119,8 @@ public static Stream<Path> walk(Path start,
 public static Stream<Path> walk(Path start,
                               FileVisitOption... options) throws IOException 
  - Return a Stream that is lazily populated with Path by walking the file tree rooted at a given 
-   starting file. The file tree is traversed depth-first, the elements in the stream are Path objects
-   that are obtained as if by resolving the relative path against start. 
+   starting file. The file tree is traversed depth-first, the elements in the stream are Path 
+   objects that are obtained as if by resolving the relative path against start. 
 {% endhighlight %}
    
 #### find:
@@ -128,16 +129,16 @@ public static Stream<Path> find(Path start,
                               int maxDepth,
                               BiPredicate<Path,BasicFileAttributes> matcher,
                               FileVisitOption... options) throws IOException
- - Return a Stream that is lazily populated with Path by searching for files in a file tree rooted at
-   a given starting file. 
+ - Return a Stream that is lazily populated with Path by searching for files in a file tree 
+   rooted at a given starting file. 
 {% endhighlight %}
  	
 #### lines
 {% highlight java %} 
 public static Stream<String> lines(Path path, Charset cs) throws IOException  
 public static Stream<String> lines(Path path) throws IOException    -> Uses UTF-8 charset                               
- - Read all lines from a file as a Stream. Unlike readAllLines, this method does not read all lines
-   into a List, but instead populates lazily as the stream is consumed.
+ - Read all lines from a file as a Stream. Unlike readAllLines, this method does not read
+   all lines into a List, but instead populates lazily as the stream is consumed.
 {% endhighlight %}
  	
 The returned stream encapsulates a Reader so this should be called with try-with-resources.
