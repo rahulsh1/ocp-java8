@@ -50,7 +50,7 @@ comments: true
  
 {% highlight java linenos %}
 public void saySomething() {
-  interface HelloThere {			// Compile failure :boom:
+  interface HelloThere {			// Compile failure 
      public void greet();
   }
 }
@@ -61,7 +61,7 @@ public void saySomething() {
 {% highlight java linenos %}
 public void saySomething() {
   class SayHello {
-    public static void goodbye() {  // Compile failure :boom:
+    public static void goodbye() {  // Compile failure
       System.out.println("Bye bye");
     }
   }

@@ -250,7 +250,7 @@ You should know by just the Interface name, what parameter they accept and what 
 
 `ToDoubleBiFunction<T, U>` - Function that accepts two arguments and produces a double-valued result. 
 
-:point_right: You have to know each of the above types for the exam, with their arguments and return types.
+:point_right: You have to know each of the above types for the exam, with their arguments and return types. :fire:
 
 ### 2.8.  Develop the code that use method reference; including refactor the code that use Lambda expression to use method references 
 
@@ -303,6 +303,8 @@ Supplier<String> f1 = i::toString;
 System.out.println(f1.get());
 {% endhighlight %}
 
+:bulb: Know when to use which type of method reference.
+ 
 --------------------------------	    
 [Next Chapter - Filtering Collections with Lambdas](pages/chapter3.html)
 
