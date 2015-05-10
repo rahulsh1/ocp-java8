@@ -8,15 +8,15 @@ description: 1Z0-810 JavaSE8
 See [Exam Topics](http://education.oracle.com/pls/web_prod-plq-dad/db_pages.getpage?page_id=5001&get_params=p_exam_id:1Z0-810#tabs-2)
 
 ##### Notes
-- [Lambda Expressions](pages/chapter1.html)
-- [Using Built in Lambda Types](pages/chapter2.html)
-- [Filtering Collections with Lambdas](pages/chapter3.html)
-- [Collection Operations with Lambda](pages/chapter4.html)
-- [Parallel Streams](pages/chapter5.html)
-- [Lambda Cookbook](pages/chapter6.html)
-- [Method Enhancements](pages/chapter7.html)
-- [Use Java SE 8 Date/Time API](pages/chapter8.html)
-- [JavaScript on Java with Nashorn](pages/chapter9.html)
+- [Chapter 1 - Lambda Expressions](pages/chapter1.html)
+- [Chapter 2 - Using Built in Lambda Types](pages/chapter2.html)
+- [Chapter 3 - Filtering Collections with Lambdas](pages/chapter3.html)
+- [Chapter 4 - Collection Operations with Lambda](pages/chapter4.html)
+- [Chapter 5 - Parallel Streams](pages/chapter5.html)
+- [Chapter 6 - Lambda Cookbook](pages/chapter6.html)
+- [Chapter 7 - Method Enhancements](pages/chapter7.html)
+- [Chapter 8 - Use Java SE 8 Date/Time API](pages/chapter8.html)
+- [Chapter 9 - JavaScript on Java with Nashorn](pages/chapter9.html)
 
 
 ##### Contents

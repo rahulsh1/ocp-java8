@@ -61,11 +61,11 @@ System.out.println("Max: " + istream.max().getAsInt());
 
       boolean noneMatch(Predicate<? super T> predicate);  
   
-:point_right: Remember method signatures: :fire:
+:fire: Remember the method signatures: 
 
-    All `findXxx()` methods have no arguments and return `Optional`.
+:point_right: All `findXxx()` methods have no arguments and return `Optional`.
 
-    All `xxxMatch(...)` methods accept a Predicate and return a `boolean` primitive. 
+:point_right: All `xxxMatch(...)` methods accept a `Predicate` and return a `boolean` primitive. 
     
 All the above are `short circuit` operations. If results match or dont match, they will come out without processing the whole stream.
 

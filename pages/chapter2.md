@@ -179,7 +179,7 @@ public interface IntPredicate {
 }
 {% endhighlight %}
 
-##### Mapping Table
+#### Mapping Table
 You should know by just the Interface name, what parameter they accept and what they return.
 
 > How to remember :question:
@@ -196,21 +196,15 @@ You should know by just the Interface name, what parameter they accept and what 
 | DoublePredicate | DoubleConsumer | DoubleFunction<R>| DoubleSupplier | DoubleUnaryOperator|
 | -               | -              | -                | BooleanSupplier | -    |
 
-#### Additional Function<T, R>
-
-`IntFunction<R>` - Function that accepts an int-valued argument and produces a result.
+##### Additional Function<T, R>
 
 `IntToDoubleFunction` - Function that accepts an int-valued argument and produces a double-valued result.
 
 `IntToLongFunction` - Function that accepts an int-valued argument and produces a long-valued result.
 
-`LongFunction<R>` - Function that accepts a long-valued argument and produces a result.
-
 `LongToDoubleFunction` - Function that accepts a long-valued argument and produces a double-valued result.
 
 `LongToIntFunction` - Function that accepts a long-valued argument and produces an int-valued result.
-
-`DoubleFunction<R>` - Function that accepts a double-valued argument and produces a result.
 
 `ToIntFunction<T>` - Function that produces an int-valued result.
 
@@ -218,14 +212,14 @@ You should know by just the Interface name, what parameter they accept and what 
 
 `ToLongFunction<T>` - Function that produces a long-valued result.
 
-#### Binary Interfaces
+#### Binary Interfaces - Takes two inputs instead of one
 
-|  |  `Predicate<T>`  | `Consumer<T>`      |  `Function<T, R>` | `Supplier<T>`     | `UnaryOperator<T>` |
+|     |  `Predicate<T>`  | `Consumer<T>`      |  `Function<T, R>` | `Supplier<T>`     | `UnaryOperator<T>` |
 |-----| ------------- | -------------    |-----------------|-----------------|-------------------|
 | Type| BiPredicate<L, R>  | BiConsumer<T, U>  |BiFunction<T, U, R>  | -      | BinaryOperator<T> |
 |Params| (L, R) -> boolean  | (T, U) -> void    | (T, U) -> R       | -      | (T, T) -> T       |
 
-#### Additional Ones 
+##### Additional Ones 
 > Binary Operators
 
 `IntBinaryOperator` - Function operation upon two int-valued operands and producing an int-valued result.
