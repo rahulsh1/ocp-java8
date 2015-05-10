@@ -77,3 +77,24 @@ a code {
 .lineno::selection {background-color: transparent;} /* Other major browsers */
 .highlight .lineno { color: #ccc; display:inline-block; padding: 0 5px; border-right:1px solid #ccc; }
 .highlight pre code { display: block; white-space: pre; overflow-x: auto; word-wrap: normal; }
+
+table, td
+{
+    border-color: #600;
+    border-style: solid;
+}
+
+table
+{
+    border-width: 1px 1px 1px 1px;
+    border-spacing: 2px;
+    border-collapse: collapse;
+}
+
+td
+{
+    margin: 0;
+    padding: 4px;
+    border-width: 1px 1px 0 0;
+    background-color: #FFC;
+}
