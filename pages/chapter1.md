@@ -69,6 +69,25 @@ public void saySomething() {
 }
 {% endhighlight %}
 
+{% highlight java linenos %}
+public class OuterInnerDemo {
+  public static class StaticInner {
+    private String in;
+
+    // OK
+    static int x = 10;
+    static final int y = 20;
+
+    public static void doIt() {
+
+      class StaticInnerInner {
+        // Compile error: Inner class cannot have static declarations
+//    static int x = 10;
+      }
+    }
+  }
+{% endhighlight %}
+
 ##### 1.1.4 Anonmymous class
 
  - has access to the members of its enclosing class.
@@ -78,6 +97,37 @@ public void saySomething() {
  - Anonymous classes also have the same restrictions as local classes with respect to their members:
    - You cannot declare static initializers or member interfaces in an anonymous class.
    - An anonymous class can have static members provided that they are constant variables.
+   
+{% highlight java linenos %}
+public class InnerClassDemo {
+
+  private int x = 10;
+  private static int staticX = 20;
+  
+  public void testAnonymousClass() {
+    int y = 30;
+    System.out.println("Anonymous Class");
+    SomeInterface someInterface = new SomeInterface() {
+      int z = 40;
+      // static int z1 = 42; // <-- Inner class cannot have static declarations
+      static final int z2 = 42; // <-- OK
+
+      @Override
+      public void doSomething() {
+//        y++;  // y needs to be final
+        x++;
+        z++;
+        System.out.println("x = " + x);
+        System.out.println("y = " + y);
+        System.out.println("z = " + z);
+
+        System.out.println("staticX is " + staticX);
+      }
+    };
+    someInterface.doSomething();
+  }
+}
+{% endhighlight %}
 
 ### 1.2.  Define and write functional interfaces 
 
@@ -147,6 +197,9 @@ p -> p.getDept() >= 2
 (Person p) -> { return p.getDept() >= 2; }      // Note the {}
 	
 {% endhighlight %} 
+
+:memo: [Code examples](../sources/src/ocp/study/part1)
+
 --------------------------------	    
 [Chapter2 - Using Built in Lambda Types](chapter2.html)
 
