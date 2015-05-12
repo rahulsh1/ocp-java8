@@ -198,6 +198,10 @@ Since there is no terminal operation, there would be no output.
 
 If you add a `foreach(System.out::println)` to above stream at the end, you will see all lower case words first and then all upper case words.
 
+--------------------------------	
+
+:memo: [Code examples](https://github.com/rahulsh1/ocp-java8/tree/master/sources/src/ocp/study/part3)
+
 --------------------------------	    
 [Next Chapter - Collection Operations with Lambda](chapter4.html)
 

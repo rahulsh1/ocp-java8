@@ -198,7 +198,9 @@ p -> p.getDept() >= 2
 	
 {% endhighlight %} 
 
-:memo: [Code examples](../sources/src/ocp/study/part1)
+--------------------------------	
+
+:memo: [Code examples](https://github.com/rahulsh1/ocp-java8/tree/master/sources/src/ocp/study/part1)
 
 --------------------------------	    
 [Chapter2 - Using Built in Lambda Types](chapter2.html)

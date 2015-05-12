@@ -69,6 +69,41 @@ System.out.println("Max: " + istream.max().getAsInt());
     
 All the above are `short circuit` operations. If results match or dont match, they will come out without processing the whole stream.
 
+{% highlight java linenos %} 
+  private static void findFirst() {
+    List<Employee> employees = Arrays.asList(new Employee("Jack"), new Employee("Jill"), new Employee("Jiane"));
+    Stream<Employee> emps = employees.stream();
+
+    Optional<Employee> result = emps.filter(s -> s.getName().contains("i")).findFirst();
+
+    System.out.println("findFirst Result = " + result.get());
+  }
+  
+  private static void allMatch() {
+    List<Employee> employees = Arrays.asList(new Employee("Jack"), new Employee("Jill"), new Employee("Jiane"));
+    Stream<Employee> emps = employees.stream();
+
+    boolean result = emps.allMatch(s -> s.getName().startsWith("J"));
+
+    System.out.println("allMatch Result = " + result);
+  }
+  private static void noneMatch() {
+    List<Employee> employees = Arrays.asList(new Employee("Jack"), new Employee("Jill"), new Employee("Jiane"));
+    Stream<Employee> emps = employees.stream();
+
+    boolean result = emps.noneMatch(s -> s.getName().startsWith("K"));
+
+    System.out.println("noneMatch Result = " + result);
+  }  
+{% endhighlight %} 
+
+:key: Output
+    
+      findFirst Result = Jill
+      allMatch Result = true
+      noneMatch Result = true
+    
+    
 ### 4.3.  Describe the unique characteristics of the Optional classes 
 
 A `java.util.Optional<T>` object is either a wrapper for an Object of type T or a wrapper for no object.
@@ -108,6 +143,35 @@ lets you execute the action given as argument if a value is present; otherwise n
 
 `Optional.isPresent()` returns true if the Optional contains a value, false otherwise. 
 
+{% highlight java linenos %}
+  public static void main(String[] args) {
+    Optional<String> opt1 = Optional.of("Hello");
+    String s = opt1.get();
+
+    System.out.println(opt1.isPresent() + " " + s);
+
+    Optional<String> opt2 = Optional.empty();
+    System.out.println("Value or default: " + opt2.orElse("Default"));
+
+    // With Supplier
+    System.out.println("Value or default: " + opt2.orElseGet(() -> "Some default"));
+
+    // Print only if opt1 has a value, Takes in a Consumer
+    opt1.ifPresent(System.out::println);
+
+    // Throws NPE
+    Optional<String> optNull = Optional.of(null);
+  }
+{% endhighlight %} 
+  
+:key: Output
+    
+      true Hello
+      Value or default: Default
+      Value or default: Some default
+      Hello
+      Exception in thread "main" java.lang.NullPointerException  
+      
 ### 4.4.  Perform calculations using methods: count, max, min, average, sum
 
 ##### Stream Data Methods
@@ -121,16 +185,42 @@ lets you execute the action given as argument if a value is present; otherwise n
   
   `long count()`
  
-:point_right: Note that `min` and `max` return an `Optional` :fire:
+:point_right: Note that `min` and `max` return an `Optional`. Also `average` and `sum` apply to primitive streams only :fire:
  
 ##### Primitive streams
   `IntStream`    - also used for  short, char, byte, and boolean
+  
   `LongStream`,  and 
+  
   `DoubleStream`  also for float
   
-:point_right: Stream of objects can be mapped using mapToInt, mapToLong, or mapToDouble methods. :fire:
-  
-  
+:point_right: Stream of objects can be mapped using `mapToInt`, `mapToLong`, or `mapToDouble` methods. :fire:
+
+{% highlight java linenos %}  
+  private static void primitiveStreams() {
+    List<Integer> list = Arrays.asList(20, 2, 72, 991, 100, -11);
+
+    IntStream is = list.stream().mapToInt(t -> t);
+    System.out.println("Max = " + is.max());
+
+    IntStream is2 = list.stream().mapToInt(t -> t);
+    System.out.println("Min = " + is2.min());
+
+    IntStream is3 = list.stream().mapToInt(t -> t);
+    System.out.println("Sum = " + is3.sum());
+
+    IntStream is4 = list.stream().mapToInt(t -> t);
+    System.out.println("Avg = " + is4.average().getAsDouble());
+  }
+{% endhighlight %} 
+    
+:key: Output
+        
+    Max = OptionalInt[991]
+    Min = OptionalInt[-11]
+    Sum = 1174
+    Avg = 195.66666666666666
+    
 ### 4.5.  Sort a collection using lambda expressions 
 
 `sorted()`  - This is a stateful intermediate operation.
@@ -150,27 +240,90 @@ Comparators can also be chained using
    `Comparator<Employee> c2 = (e1, e2) -> e1.name.compareTo(e2.name);`
      
 ### 4.6.  Save results to a collection by using the collect method and Collector class; including methods such as averagingDouble, groupingBy, joining, partitioningBy
-
+ 
 * `joining` - Returns a Collector that concatenates the input elements into a String
 {% highlight java %} 
-  static Collector<CharSequence,?,String>   joining()
-{% endhighlight %}  
+static Collector<CharSequence,?,String> joining()
+ - Returns a Collector that concatenates the input elements into a String, in encounter order.
+ 
+static Collector<CharSequence,?,String> joining(CharSequence delimiter)
+ - Returns a Collector that concatenates the input elements, separated by the specified delimiter, in encounter order.
+ 
+static Collector<CharSequence,?,String> joining(CharSequence delimiter, CharSequence prefix, CharSequence suffix)
+ - Returns a Collector that concatenates the input elements, separated by the specified delimiter,
+  with the specified prefix and suffix, in encounter order.
+ {% endhighlight %}  
+ 
+
 * `groupingBy` - Create a group of values
- {% highlight java %} 
+{% highlight java %} 
+static <T,K> Collector<T,?,Map<K,List<T>>> groupingBy(Function<? super T,? extends K> classifier)
+ - Returns a Collector implementing a "group by" operation on input elements of type T,
+   grouping elements according to a classification function, and returning the results in a Map.
+   
+static <T,K,A,D> Collector<T,?,Map<K,D>> groupingBy(Function<? super T,? extends K> classifier,
+                                                       Collector<? super T,A,D> downstream)
+ - Returns a Collector implementing a cascaded "group by" operation on input elements of type T, 
+   grouping elements according to a classification function, and then performing a reduction operation
+   on the values associated with a given key using the specified downstream Collector.
+   
+static <T,K,D,A,M extends Map<K,D>>
+Collector<T,?,M> 	groupingBy(Function<? super T,? extends K> classifier,
+                               Supplier<M> mapFactory, Collector<? super T,A,D> downstream)
+ - Returns a Collector implementing a cascaded "group by" operation on input elements of type T,
+   grouping elements according to a classification function, and then performing a reduction operation 
+   on the values associated with a given key using the specified downstream Collector.
+{% endhighlight %}  
+ 
+Example:
+{% highlight java %} 
 Map<K, List<T> groupingBy(Function<? super T,? extends K> classifier)`
 // Group employees by department
 Map<Department, List<Employee>> byDept = emps.collect(Collectors.groupingBy(Employee::getDepartment));
- {% endhighlight %} 
+{% endhighlight %} 
   
 * `partitioningBy`:  Returns a Collector which partitions the input elements according to a Predicate, and organizes them into a Map<Boolean, List<T>>.
+
+{% highlight java %} 
+static <T> Collector<T,?,Map<Boolean,List<T>>> 	partitioningBy(Predicate<? super T> predicate)
+ - Returns a Collector which partitions the input elements according to a Predicate, 
+   and organizes them into a Map<Boolean, List<T>>.
+   
+static <T,D,A> Collector<T,?,Map<Boolean,D>> 	partitioningBy(Predicate<? super T> predicate, 
+                                                         Collector<? super T,A,D> downstream)
+ - Returns a Collector which partitions the input elements according to a Predicate, 
+   reduces the values in each partition according to another Collector, and organizes them 
+   into a Map<Boolean, D> whose values are the result of the downstream reduction.
+{% endhighlight %} 
+  
+Example:
 {% highlight java %} 
 Map<Boolean,List<T>>>   partitioningBy(Predicate<? super T> predicate)
 {% endhighlight %}   
+ 
 * `averagingDouble`:  
 {% highlight java %}  
     Double averagingDouble(ToDoubleFunction<? super T> mapper)
 {% endhighlight %} 
+
+{% highlight java %} 
+static <T> Collector<T,?,Double> 	averagingDouble(ToDoubleFunction<? super T> mapper)
+ - Returns a Collector that produces the arithmetic mean of a double-valued function applied to the input elements.
+ 
+static <T> Collector<T,?,Double> 	averagingInt(ToIntFunction<? super T> mapper)
+ - Returns a Collector that produces the arithmetic mean of an integer-valued function applied to the input elements.
+ 
+static <T> Collector<T,?,Double> 	averagingLong(ToLongFunction<? super T> mapper)
+ - Returns a Collector that produces the arithmetic mean of a long-valued function applied to the input elements.
+{% endhighlight %} 
+
+:fire: You should know all the overloaded methods given here.
+
 [See Also](http://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html)
+
+--------------------------------	
+
+:memo: [Code examples](https://github.com/rahulsh1/ocp-java8/tree/master/sources/src/ocp/study/part4)
 
 --------------------------------	    
 [Next Chapter -  Parallel Streams](chapter5.html)

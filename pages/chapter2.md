@@ -299,6 +299,10 @@ System.out.println(f1.get());
 
 :bulb: Know when to use which type of method reference.
  
+--------------------------------	
+
+:memo: [Code examples](https://github.com/rahulsh1/ocp-java8/tree/master/sources/src/ocp/study/part2)
+ 
 --------------------------------	    
 [Next Chapter - Filtering Collections with Lambdas](chapter3.html)
 
