@@ -83,7 +83,11 @@ var th = new Thread(function() print("Run in a separate thread"))
 
 ##### Restricting Script Access to Specified Java Classes
   The `jdk.nashorn.api.scripting.ClassFilter` interface enables you to restrict access to specified Java classes from scripts run by a Nashorn script engine
-  
+
+--------------------------------	
+
+:memo: [Code examples](https://github.com/rahulsh1/ocp-java8/tree/master/sources/src/ocp/study/part9)
+
 
 --------------------------------	    
 [Previous Chapter 8. Use Java SE 8 Date/Time API](chapter8.html)

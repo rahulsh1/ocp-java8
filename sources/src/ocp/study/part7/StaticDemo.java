@@ -39,10 +39,10 @@ public class StaticDemo {
       System.out.println("C - OneTest: Do it");
     }
 
-    @Override
-    public void doSomething() {
-      System.out.println("C - OneTest: Do something");
-    }
+//    @Override
+//    public void doSomething() {
+//      System.out.println("C - OneTest: Do something");
+//    }
   }
 
   static class TwoTest implements Two {

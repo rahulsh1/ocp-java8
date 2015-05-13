@@ -14,7 +14,7 @@ Use `.parallelStream()` instead of `.stream()` or use `.stream().parallel()`
 
 use `.sequential()` method on a stream to convert a parallel stream into a sequential stream
 
-Parallel streams uses the `fork/join` framework that was added in Java 7
+Parallel streams uses the `fork/join` framework that was added in Java 7.
 When a stream executes in parallel, the Java runtime partitions the stream into multiple substreams. 
 Aggregate operations iterate over and process these substreams in parallel and then combine the results.
 {% highlight java %}  
@@ -33,7 +33,7 @@ ConcurrentMap<Person.Sex, List<Person>> byGender =
 
 [See Also](http://docs.oracle.com/javase/tutorial/collections/streams/parallelism.html)
 
-#### Ordering: Pipeline methods
+###### Ordering: Pipeline methods
 The ordering will be totally random here incase of parallel streams.
 
 {% highlight java %} 
@@ -95,8 +95,65 @@ Performs a reduction on the elements of this stream, using the provided identity
 Performs a reduction on the elements of this stream, using the provided identity, accumulation and combining functions.
  
 :fire: 
-:point_right:  The reduce operation always returns a new value. The accumulator function also returns a new value every time it processes an element of a stream
-  
+:point_right:  The reduce operation always returns a **new** value. The accumulator function also returns a new value every time it processes an element of a stream
+
+Example1:
+{% highlight java linenos %}    
+static void reduce(List<Person> roster) {
+  Integer totalAge = roster
+      .stream()
+      .mapToInt(Person::getAge)
+      .sum();
+  System.out.println("TotalAge: " + totalAge);
+
+  Integer totalAgeReduce = roster
+      .stream()
+      .map(Person::getAge)
+      .reduce(
+          0,
+          (a, b) -> a + b);
+  System.out.println("TotalAge: " + totalAgeReduce);
+}
+{% endhighlight %}
+
+Example2:  
+{% highlight java linenos %}   
+static class Averager implements IntConsumer {
+  private int total = 0;
+  private int count = 0;
+
+  public double average() {
+    return count > 0 ? ((double) total) / count : 0;
+  }
+
+  public void accept(int i) {
+    total += i;
+    count++;
+  }
+
+  public void combine(Averager other) {
+    total += other.total;
+    count += other.count;
+  }
+}
+
+static void collect(List<Person> roster) {
+  Averager averageCollect = roster.stream()
+      .map(Person::getAge)
+      .collect(Averager::new, Averager::accept, Averager::combine);
+  System.out.println("Average age of all members: " + averageCollect.average());
+}
+
+public static void main(String[] args) {  
+ List<Person> persons = Arrays.asList(new Person("Jane", 25, false), new Person("Alice", 28, false),
+    new Person("Bob", 42, true), new Person("Tina", 19, false));
+ collect(persons);
+}
+{% endhighlight %}
+:key: Output
+     
+     Average age of all members: 28.5
+            
 ##### Stream.collect
 Unlike the reduce method, which always creates a new value when it processes an element, the collect method modifies, or mutates, an existing value.
   
@@ -116,9 +173,31 @@ The collect operation is best suited for collections.
                               Collectors.averagingInt(Person::getAge)));
 {% endhighlight %} 
 
-:fire: Know all the above methods very well - what the input args are and what they return
+   
+Example:  
+{% highlight java linenos %}  
+Map<Person.Sex, Integer> totalAgeByGender =
+        persons
+            .stream()
+            .collect(
+                Collectors.groupingBy(
+                    Person::getGender,
+                    Collectors.reducing(
+                        0,
+                        Person::getAge,
+                        Integer::sum)));
+System.out.println("TotalAgeByGender: " + totalAgeByGender);
+    
+>> TotalAgeByGender: {FEMALE=72, MALE=42} // for input above.
+{% endhighlight %}
+    
+:fire: Know all the above methods very well - the input arguments and the return types.
 
 [See Also](http://docs.oracle.com/javase/tutorial/collections/streams/reduction.html)   
+
+--------------------------------	
+
+:memo: [Code examples](https://github.com/rahulsh1/ocp-java8/tree/master/sources/src/ocp/study/part5)
 
 --------------------------------	    
 [Next Chapter - Lambda Cookbook](chapter6.html)

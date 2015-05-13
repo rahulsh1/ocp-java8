@@ -30,10 +30,50 @@ Comparator interface has been enhanced with static method
  * comparingInt
  * naturalOrder
  
-e.g
-  `myDeck.sort(Comparator.comparing(Card::getRank));`
-     
+e.g.  `myDeck.sort(Comparator.comparing(Card::getRank));`
 
+Example:
+{% highlight java linenos %}       
+interface One {
+  void doIt();
+
+  default void doSomething() {
+    System.out.println("I - One: Do something");
+    // Default can invoke static methods.
+    sayHello();
+  }
+
+  static void sayHello() {
+    System.out.println("I - One: SayHello");
+    // Cant call default methods from static context
+    // doSomething();
+  }
+}
+static class OneTest implements One {
+
+  @Override
+  public void doIt() {
+    System.out.println("C - OneTest: Do it");
+  }
+
+}
+public static void main(String[] args) {
+  One one = new OneTest();
+  one.doIt();
+  one.doSomething();
+
+  // Can use only Interface One to call sayHello()
+  One.sayHello();
+}
+{% endhighlight %}  
+
+:key: Output
+
+    C - OneTest: Do it
+    C - OneTest: Do something
+    I - One: SayHello
+    I - One: SayHello
+    
 ### 7.2. Define and use a default method of a interface; Describe the inheritance rules for a default method 
 
 Default methods enable you to add new functionality to the interfaces of your libraries and 
@@ -57,8 +97,90 @@ e.g: Comparator interface has been enhanced with default method
 
  * thenComparing
  * thenComparingDouble  to chain Comparators.
+ 
+Example:
+{% highlight java linenos %}   
+public class DefaultDemo {
+
+  @FunctionalInterface
+  interface One {
+    void doIt();
+
+    public default void doSomething() {
+      System.out.println("I - One: Do something");
+    }
+
+    default void doSomething2() {
+      System.out.println("I - One: Do something2");
+    }
+  }
+
+  // Two is NOT a @FunctionalInterface -> Two SAMs
+  interface Two extends One {
+    // Redefined it now
+    default void doSomething() {
+      System.out.println("I - Two: Do something");
+    }
+
+    // doSomething2 is now abstract..you cant get the default impl now
+    void doSomething2();
+  }
+
+  static class OneTest implements One {
+
+    @Override
+    public void doIt() {
+      System.out.println("C - OneTest: Do it");
+    }
+
+    @Override
+    public void doSomething() {
+      System.out.println("C - OneTest: Do something");
+    }
+
+  }
+
+  static class TwoTest implements Two {
+
+    @Override
+    public void doIt() {
+      System.out.println("C - TwoTest: Do it");
+    }
+
+    @Override
+    public void doSomething2() {
+      System.out.println("C - TwoTest: Do something");
+    }
+  }
+
+  public static void main(String[] args) {
+    One one = new OneTest();
+    one.doIt();
+    one.doSomething();
+    one.doSomething2();
+
+    Two two = new TwoTest();
+    two.doIt();
+    two.doSomething();
+    two.doSomething2();
+  }
+}
+{% endhighlight %}  
+
+:key: Output
+
+    C - OneTest: Do it
+    C - OneTest: Do something
+    I - One: Do something2
+    C - TwoTest: Do it
+    I - Two: Do something
+    C - TwoTest: Do something
 
 [See Also ](https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html)
+
+--------------------------------	
+
+:memo: [Code examples](https://github.com/rahulsh1/ocp-java8/tree/master/sources/src/ocp/study/part7)
 
 --------------------------------	    
 [Next Chapter 8. Use Java SE 8 Date/Time API](chapter8.html)

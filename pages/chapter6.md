@@ -6,8 +6,10 @@ comments: true
 ---
 
 ### 6.1: Develop the code that use Java SE 8 collection improvements: Collection.removeIf, List.replaceAll, Map.computeIfAbsent/Present, Map.forEach
-                    
-##### java.util.Collection<E> Interface changes
+
+> Java 8 Changes
+
+##### `java.util.Collection<E>` Interface changes
 {% highlight java %}    
 default boolean removeIf(Predicate<? super E> filter)
  - Removes all of the elements of this collection that satisfy the given predicate.
@@ -20,7 +22,7 @@ default Stream<E> parallelStream()
    It is allowable for this method to return a sequential stream. 
 {% endhighlight %}
 
-##### java.util.List<E> Interface changes
+##### `java.util.List<E>` Interface changes
 {% highlight java %}  
 default void replaceAll(UnaryOperator<E> operator)
  - Replaces each element of this list with the result of applying the operator to that element. 
@@ -32,7 +34,7 @@ default void sort(Comparator<? super E> c)
    natural order, elems must implement the Comparable interface
  {% endhighlight %}
  
-##### java.util.Iterator<E> Interface changes
+##### `java.util.Iterator<E>` Interface changes
 {% highlight java %}  
 default void forEachRemaining(Consumer<? super E> action)
  - Performs the given action for each remaining element until all elements have been processed 
@@ -70,14 +72,16 @@ default V compute(K key, BiFunction<? super K,? super V,? extends V> remappingFu
     
 ### 6.3: Use merge, flatMap methods on a collection
 
-##### java.util.Map<K, V>
+##### `java.util.Map<K, V>`
 {% highlight java %}  
 default V merge(K key, V value, BiFunction<? super V,? super V,? extends V> remappingFunction) 
  - If there is no value for this key, use value, if there is, pass to func and assign that 
    value to the key. If new value is null, removes the key from map
 {% endhighlight %}	
 
-e.g `map.merge(key, msg, String::concat)`  // to either create or append a String msg to a value mapping: 
+e.g. To either create or append a String msg to a value mapping: 
+    
+     map.merge(key, msg, String::concat)
 
 ##### [java.util.stream.Stream](http://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html)
 {% highlight java %}	
@@ -88,7 +92,27 @@ e.g `map.merge(key, msg, String::concat)`  // to either create or append a Strin
 Example:
 
 `.flatMap(e -> Stream.of(e.split(" ")))` -> Returns a `stream of R` instead of just R
+{% highlight java linenos %}  
+    List<String> list = Arrays.asList("Zello Some", "New Some", "Thing New", "zGood");
+    List<String> list2 = list.stream()
+        .flatMap(e -> Stream.of(e.split(" ")))
+        .peek(s -> System.out.println(s + " "))
+        .distinct()
+        .sorted()
+        .collect(Collectors.toList());
+    System.out.println("Unique words = " + list2);
+{% endhighlight %}
+:key: Output
 
+    Zello 
+    Some 
+    New 
+    Some 
+    Thing 
+    New 
+    zGood 
+    Unique words = [New, Some, Thing, Zello, zGood]
+        
 :point_right: Note the difference with map method :fire:
 
  `<R> Stream<R>   map(Function<? super T, ? extends R> mapper)`
@@ -163,6 +187,23 @@ public static DoubleStream stream(double[] array)
  - Returns a sequential DoubleStream with the specified array as its source
 {% endhighlight %}
     
+Example:
+{% highlight java linenos %}          
+String[] strArray = {"A", "B", "PC", "D", "PM"};
+Arrays.stream(strArray)
+    .filter(s -> s.startsWith("P"))
+    .forEach(System.out::println);
+
+long[] longArr = {1L, 2L, 3L, 5L, 10L};
+LongStream longStream = Arrays.stream(longArr);
+System.out.println("Sum = " + longStream.sum());
+
+Output: 
+PC
+PM
+Sum = 21
+{% endhighlight %}
+        
 ##### IntStream:
 {% highlight java %} 	
 static IntStream 	range(int startInclusive, int endExclusive)
@@ -173,14 +214,35 @@ static IntStream 	rangeClosed(int startInclusive, int endInclusive)
 
 Stream<Integer> 	boxed()
  - Returns a Stream consisting of the elements of this stream, each boxed to an Integer.
- {% endhighlight %}   
-   
-##### IntSummaryStatistics
+ {% endhighlight %}  
+ 
+Example: 
+{% highlight java linenos %}        
+IntStream intStream = IntStream.range(1, 20);
+intStream.forEach(i -> System.out.print(i + " "));
+System.out.println("\nAverage: " + IntStream.range(1, 20).average());
+
+// Note it includes numbers upto 20
+IntStream intStream2 = IntStream.rangeClosed(1, 20);
+intStream2.forEach(i -> System.out.print(i + " "));
+
+Output:
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+Average: OptionalDouble[10.0]
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 
+
+{% endhighlight %}    
+          
+##### IntSummaryStatistics (not mentioned for exam)
 A state object for collecting statistics such as count, min, max, sum, and average. 
 {% highlight java %} 
 IntSummaryStatistics stats = people.stream()
                                 .collect(Collectors.summarizingInt(Person::getDependents));
- {% endhighlight %}                                    
+{% endhighlight %}                                    
+
+--------------------------------	
+
+:memo: [Code examples](https://github.com/rahulsh1/ocp-java8/tree/master/sources/src/ocp/study/part6)
 
 --------------------------------	    
 [Next Chapter 7. Method Enhancements](chapter7.html)

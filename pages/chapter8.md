@@ -165,6 +165,10 @@ TimeZone.toZoneId()
  - converts a TimeZone object to a ZoneId.
 {% endhighlight %} 
 
+--------------------------------	
+
+:memo: [Code examples](https://github.com/rahulsh1/ocp-java8/tree/master/sources/src/ocp/study/part8)
+
 --------------------------------	    
 [Next Chapter 9. JavaScript on Java with Nashorn](chapter9.html)
 

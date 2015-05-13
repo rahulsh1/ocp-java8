@@ -12,11 +12,11 @@ Applying a function to each element of a stream
 Streams support the method `map()`, which takes a `Function` as argument.
 
 {% highlight java  %} 
-  Stream<Employee> emps = Stream.of(new Employee("Alice"), new Employee("Bob"),
-                                  new Employee("Jane"));
-  List<String> staff = emps.map(Employee::getName);
-                           .collect(Collectors.toList());
-  System.out.println(staff);
+Stream<Employee> emps = Stream.of(new Employee("Alice"), new Employee("Bob"),
+                                new Employee("Jane"));
+List<String> staff = emps.map(Employee::getName);
+                         .collect(Collectors.toList());
+System.out.println(staff);
 {% endhighlight %} 
 
 ##### Primitive stream specializations
@@ -70,31 +70,31 @@ System.out.println("Max: " + istream.max().getAsInt());
 All the above are `short circuit` operations. If results match or dont match, they will come out without processing the whole stream.
 
 {% highlight java linenos %} 
-  private static void findFirst() {
-    List<Employee> employees = Arrays.asList(new Employee("Jack"), new Employee("Jill"), new Employee("Jiane"));
-    Stream<Employee> emps = employees.stream();
+private static void findFirst() {
+  List<Employee> employees = Arrays.asList(new Employee("Jack"), new Employee("Jill"), new Employee("Jiane"));
+  Stream<Employee> emps = employees.stream();
 
-    Optional<Employee> result = emps.filter(s -> s.getName().contains("i")).findFirst();
+  Optional<Employee> result = emps.filter(s -> s.getName().contains("i")).findFirst();
 
-    System.out.println("findFirst Result = " + result.get());
-  }
-  
-  private static void allMatch() {
-    List<Employee> employees = Arrays.asList(new Employee("Jack"), new Employee("Jill"), new Employee("Jiane"));
-    Stream<Employee> emps = employees.stream();
+  System.out.println("findFirst Result = " + result.get());
+}
 
-    boolean result = emps.allMatch(s -> s.getName().startsWith("J"));
+private static void allMatch() {
+  List<Employee> employees = Arrays.asList(new Employee("Jack"), new Employee("Jill"), new Employee("Jiane"));
+  Stream<Employee> emps = employees.stream();
 
-    System.out.println("allMatch Result = " + result);
-  }
-  private static void noneMatch() {
-    List<Employee> employees = Arrays.asList(new Employee("Jack"), new Employee("Jill"), new Employee("Jiane"));
-    Stream<Employee> emps = employees.stream();
+  boolean result = emps.allMatch(s -> s.getName().startsWith("J"));
 
-    boolean result = emps.noneMatch(s -> s.getName().startsWith("K"));
+  System.out.println("allMatch Result = " + result);
+}
+private static void noneMatch() {
+  List<Employee> employees = Arrays.asList(new Employee("Jack"), new Employee("Jill"), new Employee("Jiane"));
+  Stream<Employee> emps = employees.stream();
 
-    System.out.println("noneMatch Result = " + result);
-  }  
+  boolean result = emps.noneMatch(s -> s.getName().startsWith("K"));
+
+  System.out.println("noneMatch Result = " + result);
+}  
 {% endhighlight %} 
 
 :key: Output
@@ -144,24 +144,24 @@ lets you execute the action given as argument if a value is present; otherwise n
 `Optional.isPresent()` returns true if the Optional contains a value, false otherwise. 
 
 {% highlight java linenos %}
-  public static void main(String[] args) {
-    Optional<String> opt1 = Optional.of("Hello");
-    String s = opt1.get();
+public static void main(String[] args) {
+  Optional<String> opt1 = Optional.of("Hello");
+  String s = opt1.get();
 
-    System.out.println(opt1.isPresent() + " " + s);
+  System.out.println(opt1.isPresent() + " " + s);
 
-    Optional<String> opt2 = Optional.empty();
-    System.out.println("Value or default: " + opt2.orElse("Default"));
+  Optional<String> opt2 = Optional.empty();
+  System.out.println("Value or default: " + opt2.orElse("Default"));
 
-    // With Supplier
-    System.out.println("Value or default: " + opt2.orElseGet(() -> "Some default"));
+  // With Supplier
+  System.out.println("Value or default: " + opt2.orElseGet(() -> "Some default"));
 
-    // Print only if opt1 has a value, Takes in a Consumer
-    opt1.ifPresent(System.out::println);
+  // Print only if opt1 has a value, Takes in a Consumer
+  opt1.ifPresent(System.out::println);
 
-    // Throws NPE
-    Optional<String> optNull = Optional.of(null);
-  }
+  // Throws NPE
+  Optional<String> optNull = Optional.of(null);
+}
 {% endhighlight %} 
   
 :key: Output
@@ -197,21 +197,21 @@ lets you execute the action given as argument if a value is present; otherwise n
 :point_right: Stream of objects can be mapped using `mapToInt`, `mapToLong`, or `mapToDouble` methods. :fire:
 
 {% highlight java linenos %}  
-  private static void primitiveStreams() {
-    List<Integer> list = Arrays.asList(20, 2, 72, 991, 100, -11);
+private static void primitiveStreams() {
+  List<Integer> list = Arrays.asList(20, 2, 72, 991, 100, -11);
 
-    IntStream is = list.stream().mapToInt(t -> t);
-    System.out.println("Max = " + is.max());
+  IntStream is = list.stream().mapToInt(t -> t);
+  System.out.println("Max = " + is.max());
 
-    IntStream is2 = list.stream().mapToInt(t -> t);
-    System.out.println("Min = " + is2.min());
+  IntStream is2 = list.stream().mapToInt(t -> t);
+  System.out.println("Min = " + is2.min());
 
-    IntStream is3 = list.stream().mapToInt(t -> t);
-    System.out.println("Sum = " + is3.sum());
+  IntStream is3 = list.stream().mapToInt(t -> t);
+  System.out.println("Sum = " + is3.sum());
 
-    IntStream is4 = list.stream().mapToInt(t -> t);
-    System.out.println("Avg = " + is4.average().getAsDouble());
-  }
+  IntStream is4 = list.stream().mapToInt(t -> t);
+  System.out.println("Avg = " + is4.average().getAsDouble());
+}
 {% endhighlight %} 
     
 :key: Output
