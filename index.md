@@ -4,6 +4,7 @@ title: Notes for 1Z0-810 Java SE8 Upgrade
 description: 1Z0-810 JavaSE8 
 ---
 
+<img src="assets/img/dukewave.gif">
 
 See [Exam Topics](http://education.oracle.com/pls/web_prod-plq-dad/db_pages.getpage?page_id=5001&get_params=p_exam_id:1Z0-810#tabs-2)
 
@@ -20,7 +21,7 @@ See [Exam Topics](http://education.oracle.com/pls/web_prod-plq-dad/db_pages.getp
 
 
 ##### Contents
- + sources : Code examples for each of the exam topics
+ + [sources](https://github.com/rahulsh1/ocp-java8/tree/master/sources) : Code examples for each of the exam topics
 
 
 ##### References/Credits
