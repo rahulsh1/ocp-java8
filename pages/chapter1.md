@@ -206,5 +206,3 @@ p -> p.getDept() >= 2
 [Chapter2 - Using Built in Lambda Types](chapter2.html)
 
 --------------------------------
-
-
