@@ -80,6 +80,14 @@ public class StreamsDemo {
     System.out.println(result2.get());
   }
 
+  private void quiz() {
+    Stream<String> words = Stream.of("lower", "case", "text");
+    Stream<String> list2 = words
+      .peek(s -> System.out.println(s))
+      .map(s -> s.toUpperCase());
+    System.out.println(list2);
+
+  }
   static class Employee {
     public String name;
     public double salary;
